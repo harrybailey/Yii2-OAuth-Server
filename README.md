@@ -11,23 +11,16 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist filsh/yii2-oauth2-server "*"
+php composer.phar require --prefer-dist human/yii2-oauth2-server "*"
 ```
 
 or add
 
 ```json
-"filsh/yii2-oauth2-server": "~2.0"
+"human/yii2-oauth-server": "~2.0"
 ```
 
 to the require section of your composer.json.
-
-To use the latest features (Like JWT tokens), you need to use 2.0.1 branch.
-Edit your compose.json and add
-
-```json
-"filsh/yii2-oauth2-server": "2.0.1.x-dev"
-```
 
 To use this extension,  simply add the following code in your application configuration:
 
@@ -35,7 +28,7 @@ To use this extension,  simply add the following code in your application config
 'bootstrap' => ['oauth2'],
 'modules' => [
     'oauth2' => [
-        'class' => 'filsh\yii2\oauth2server\Module',
+        'class' => 'human\yii2\oauth2server\Module',
         'tokenParamName' => 'accessToken',
         'tokenAccessLifetime' => 3600 * 24,
         'storageMap' => [
@@ -65,7 +58,7 @@ Additional OAuth2 Flags:
 The next step your shold run migration
 
 ```php
-yii migrate --migrationPath=@vendor/filsh/yii2-oauth2-server/migrations
+yii migrate --migrationPath=@vendor/human/yii2-oauth2-server/migrations
 ```
 
 this migration create the oauth2 database scheme and insert test user credentials ```testclient:testpass``` for ```http://fake/```
@@ -90,8 +83,8 @@ To use this extension,  simply add the behaviors for your base controller:
 use yii\helpers\ArrayHelper;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\QueryParamAuth;
-use filsh\yii2\oauth2server\filters\ErrorToExceptionFilter;
-use filsh\yii2\oauth2server\filters\auth\CompositeAuth;
+use human\yii2\oauth2server\filters\ErrorToExceptionFilter;
+use human\yii2\oauth2server\filters\auth\CompositeAuth;
 
 class Controller extends \yii\rest\Controller
 {
@@ -136,7 +129,7 @@ class SiteController extends Controller
         if (Yii::$app->getUser()->getIsGuest())
             return $this->redirect('login');
     
-        /** @var $module \filsh\yii2\oauth2server\Module */
+        /** @var $module \human\yii2\oauth2server\Module */
         $module = Yii::$app->getModule('oauth2');
         $response = $module->handleAuthorizeRequest(!Yii::$app->getUser()->getIsGuest(), Yii::$app->getUser()->getId());
     

@@ -1,6 +1,6 @@
 <?php
 
-namespace filsh\yii2\oauth2server;
+namespace human\yii2\oauth2server;
 
 /**
  * Instead use bootstrap module
@@ -22,7 +22,7 @@ class Bootstrap implements \yii\base\BootstrapInterface
             $this->initModule($module);
             
             if ($app instanceof \yii\console\Application) {
-                $module->controllerNamespace = 'filsh\yii2\oauth2server\commands';
+                $module->controllerNamespace = 'human\yii2\oauth2server\commands';
             }
         }
     }

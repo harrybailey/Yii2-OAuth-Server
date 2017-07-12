@@ -1,6 +1,6 @@
 <?php
 
-namespace filsh\yii2\oauth2server;
+namespace human\yii2\oauth2server;
 
 use \Yii;
 use yii\i18n\PhpMessageSource;
@@ -11,9 +11,10 @@ use  \array_key_exists;
  * 
  * ```php
  * 'oauth2' => [
- *     'class' => 'filsh\yii2\oauth2server\Module',
+ *     'class' => 'human\yii2\oauth2server\Module',
  *     'tokenParamName' => 'accessToken',
  *     'tokenAccessLifetime' => 3600 * 24,
+ *     'storageMap' => [
  *     'storageMap' => [
  *         'user_credentials' => 'common\models\User',
  *     ],
@@ -79,7 +80,7 @@ class Module extends \yii\base\Module
     /**
      * Gets Oauth2 Server
      * 
-     * @return \filsh\yii2\oauth2server\Server
+     * @return \human\yii2\oauth2server\Server
      * @throws \yii\base\InvalidConfigException
      */
     public function getServer()
