@@ -1,38 +1,27 @@
 yii2-oauth2-server
 ==================
 
+Forked from https://github.com/Filsh/yii2-oauth2-server
+
 A wrapper for implementing an OAuth2 Server(https://github.com/bshaffer/oauth2-server-php)
 
-Installation
-------------
+# Installation
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+`composer require human/yii2-oauth2-server`
 
-Either run
-
-```
-php composer.phar require --prefer-dist human/yii2-oauth2-server "*"
-```
-
-or add
-
-```json
-"human/yii2-oauth-server": "~2.0"
-```
-
-to the require section of your composer.json.
+# Set up
 
 To use this extension,  simply add the following code in your application configuration:
 
 ```php
-'bootstrap' => ['oauth2'],
+'bootstrap' => ['log', 'oauth2'],
 'modules' => [
     'oauth2' => [
         'class' => 'human\yii2\oauth2server\Module',
-        'tokenParamName' => 'accessToken',
-        'tokenAccessLifetime' => 3600 * 24,
+        'tokenParamName' => 'accessToken', // The naming convention for token name
+        'tokenAccessLifetime' => 3600 * 24 * 365, // How long to tokens last for?
         'storageMap' => [
-            'user_credentials' => 'common\models\User',
+            'user_credentials' => 'api\models\OAuthUser', // The model used to lookup username / password
         ],
         'grantTypes' => [
             'user_credentials' => [
@@ -44,8 +33,46 @@ To use this extension,  simply add the following code in your application config
             ]
         ]
     ]
-]
+],
 ```
+
+As referenced above, we need an `OAuthUser` model to look up users for auth requests that come in. This is it's simplest form, inheriting from an existing `User` model
+
+```php
+namespace api\models;
+
+use Yii;
+
+class OAuthUser extends \common\models\User implements \OAuth2\Storage\UserCredentialsInterface
+{
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        $module = Yii::$app->getModule('oauth2');
+        $token = $module->getServer()->getResourceController()->getToken();
+        return !empty($token['user_id']) ? static::findIdentity($token['user_id']) : null;
+    }
+
+    public function checkUserCredentials($username, $password)
+    {
+        $user = static::findByUsername($username);
+        
+        if (empty($user))
+        {
+            return false;
+        }
+        
+        return $user->validatePassword($password);
+    }
+
+    public function getUserDetails($username)
+    {
+        $user = static::findByUsername($username);
+        return ['user_id' => $user->getId()];
+    }
+}
+```
+
+
 
 ```common\models\User``` - user model implementing an interface ```\OAuth2\Storage\UserCredentialsInterface```, so the oauth2 credentials data stored in user table
 
