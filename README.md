@@ -125,3 +125,30 @@ class ActiveController extends \yii\rest\ActiveController
     }
 }
 ```
+
+# Testing it out
+
+### Password grant
+
+Open your favourite API request application, such as Postman and make a `POST` request to the following URL
+
+`http://your-api-url.dev/oauth2/token`
+
+Set the body of the request to include the following..
+
+```
+    grant_type => password
+    username => xxxxx@xxxxx.com
+    password => xxxxxxxxx
+    client_id => testclient
+    client_secret => testpass
+```
+
+Your access token should be returned to you.
+
+Note: `username` and `password` need to be a valid email address / password in the DB
+Note 2: `client_id` and `client_secret` are stored in the `oauth_clients` table and can be changed
+
+
+
+Note,
