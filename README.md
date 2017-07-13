@@ -5,6 +5,19 @@ Forked from https://github.com/Filsh/yii2-oauth2-server a wrapper for implementi
 
 # Installation
 
+Add the following to your `composer.json` file to look for packages in this repo. 
+
+```
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "git@gitlab.tariffstreet.com:tariff-street/yii2-oauth2-server.git"
+    }
+],
+```
+
+Then..
+
 `composer require human/yii2-oauth2-server`
 
 # Set up
