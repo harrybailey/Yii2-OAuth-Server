@@ -1,9 +1,7 @@
 yii2-oauth2-server
 ==================
 
-Forked from https://github.com/Filsh/yii2-oauth2-server which is build on top of https://github.com/bshaffer/oauth2-server-php
-
-A wrapper for implementing an OAuth2 Server(https://github.com/bshaffer/oauth2-server-php)
+Forked from https://github.com/Filsh/yii2-oauth2-server a wrapper for implementing an OAuth2 Server - https://github.com/bshaffer/oauth2-server-php
 
 # Installation
 
