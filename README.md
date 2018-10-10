@@ -137,29 +137,47 @@ class ActiveController extends \yii\rest\ActiveController
 }
 ```
 
-# Testing it out
+# Authentication
 
-### Password grant
+The `oauth_clients` table should contain a row for each frontend client using the API. These can be changed
 
-Open your favourite API request application, such as Postman and make a `POST` request to the following URL
+## Requests where the user is not logged in
 
-`http://your-api-url.dev/oauth2/token`
+To authenticate any request you need to add the header `X-API-Key` with the value being `oauth_clients.client_id` from the database (e.g. to register or password reset where the user is not logged in)
 
-Set the body of the request to include the following..
+## To log in a user
 
+`POST https://[API URL]/oauth2/token`
+
+Body:
+```json
+{
+    "grant_type":"password",
+    "username":"[USERNAME]",
+    "password":"[PASSWORD]",
+    "client_id":"[CLIENT ID]",
+    "client_secret":"[CLIENT SECRET]"
+}
 ```
-    grant_type => password
-    username => xxxxx@xxxxx.com
-    password => xxxxxxxxx
-    client_id => testclient
-    client_secret => testpass
+
+Where:
+* `[USERNAME]` is the user's email address
+* `[PASSWORD]` is the user's password
+* `[CLIENT ID]` is the same client ID from the database as above (the same for all users)
+* `[CLIENT SECRET]` is `oauth_clients.client_secret` from the database that matches the client ID above (the same for all users)
+
+This will return:
+
+```json
+{
+"access_token": "[ACCESS TOKEN]",
+"expires_in": 31536000,
+"token_type": "Bearer",
+"scope": null,
+"refresh_token": "[REFRESH TOKEN]"
+}
 ```
 
-Your access token should be returned to you.
+## For any logged in requests following this
 
-Note: `username` and `password` need to be a valid email address / password in the DB
-Note 2: `client_id` and `client_secret` are stored in the `oauth_clients` table and can be changed
-
-
-
-Note,
+Add header `Authorization` with the value `Bearer [ACCESS TOKEN]` with the access token returned by logging in above
