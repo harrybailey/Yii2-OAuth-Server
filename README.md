@@ -180,4 +180,4 @@ This will return:
 
 ## For any logged in requests following this
 
-Add header `Authorization` with the value `Bearer [ACCESS TOKEN]` with the access token returned by logging in above
+As well as the `X-API-Key` header, add header `Authorization` with the value `Bearer [ACCESS TOKEN]` with the access token returned by logging in above
