@@ -18,7 +18,7 @@ Add the following to your `composer.json` file to look for packages in this repo
 
 Then..
 
-`composer require harrybailey\Yii2-OAuth-Server`
+`composer require harrybailey\yii2-oauth-server`
 
 # Set up
 
@@ -101,9 +101,9 @@ class OAuthUser extends \common\models\User implements \OAuth2\Storage\UserCrede
 
 # Migrations
 
-We need to set up various tables to store our oauth details in, the migration can be found in `vendor/harrybailey/Yii2-Oauth2-Server/migrations`
+We need to set up various tables to store our oauth details in, the migration can be found in `vendor/harrybailey/yii2-oauth2-server/migrations`
 
-Run `./yii migrate/create add_oauth_tables` to create an empty migration and copy the class functions from `/vendor/harrybailey/Yii2-Oauth2-Server/migrations/m140501_075311_add_oauth2_server.php` to the new file. 
+Run `./yii migrate/create add_oauth_tables` to create an empty migration and copy the class functions from `/vendor/harrybailey/yii2-oauth2-server/migrations/m140501_075311_add_oauth2_server.php` to the new file. 
 
 
 # Authentication in API requests
