@@ -18,7 +18,7 @@ Add the following to your `composer.json` file to look for packages in this repo
 
 Then..
 
-`composer require human/yii2-oauth2-server`
+`composer require harrybailey\Yii2-OAuth-Server`
 
 # Set up
 
@@ -28,7 +28,7 @@ To use this extension,  simply add the following code in your application config
 'bootstrap' => ['oauth2'],
 'modules' => [
     'oauth2' => [
-        'class' => 'human\yii2\oauth2server\Module',
+        'class' => 'harrybailey\yii2\oauth2server\Module',
         'tokenParamName' => 'accessToken', // The naming convention for token name
         'tokenAccessLifetime' => 3600 * 24 * 365, // How long to tokens last for?
         'storageMap' => [
@@ -101,9 +101,9 @@ class OAuthUser extends \common\models\User implements \OAuth2\Storage\UserCrede
 
 # Migrations
 
-We need to set up various tables to store our oauth details in, the migration can be found in `vendor/human/yii2-oauth2-server/migrations`
+We need to set up various tables to store our oauth details in, the migration can be found in `vendor/harrybailey/Yii2-Oauth2-Server/migrations`
 
-Run `./yii migrate/create add_oauth_tables` to create an empty migration and copy the class functions from `/vendor/human/yii2-oauth2-server/migrations/m140501_075311_add_oauth2_server.php` to the new file. 
+Run `./yii migrate/create add_oauth_tables` to create an empty migration and copy the class functions from `/vendor/harrybailey/Yii2-Oauth2-Server/migrations/m140501_075311_add_oauth2_server.php` to the new file. 
 
 
 # Authentication in API requests
@@ -114,8 +114,8 @@ Simply add the behaviors for your base controller:
 use yii\helpers\ArrayHelper;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\QueryParamAuth;
-use human\yii2\oauth2server\filters\ErrorToExceptionFilter;
-use human\yii2\oauth2server\filters\auth\CompositeAuth;
+use harrybailey\yii2\oauth2server\filters\ErrorToExceptionFilter;
+use harrybailey\yii2\oauth2server\filters\auth\CompositeAuth;
 
 class ActiveController extends \yii\rest\ActiveController
 {

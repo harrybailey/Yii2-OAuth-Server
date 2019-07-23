@@ -1,6 +1,6 @@
 <?php
 
-namespace human\yii2\oauth2server\traits;
+namespace harrybailey\yii2\oauth2server\traits;
 
 trait ClassNamespace
 {

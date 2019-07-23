@@ -1,10 +1,10 @@
 <?php
 
-namespace human\yii2\oauth2server\controllers;
+namespace harrybailey\yii2\oauth2server\controllers;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use human\yii2\oauth2server\filters\ErrorToExceptionFilter;
+use harrybailey\yii2\oauth2server\filters\ErrorToExceptionFilter;
 
 class RestController extends \yii\rest\Controller
 {
